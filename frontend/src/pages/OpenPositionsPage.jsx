@@ -1,0 +1,144 @@
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import FilterBar from '../components/FilterBar';
+import JobCard from '../components/JobCard';
+import PageHeader from '../components/PageHeader';
+import { jobsData } from '../data/jobsData';
+import { Briefcase } from 'lucide-react';
+
+const OpenPositionsPage = () => {
+  const [filteredJobs, setFilteredJobs] = useState(jobsData);
+  const [filters, setFilters] = useState({
+    search: '',
+    location: '',
+    type: '',
+    experience: ''
+  });
+
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+  };
+
+  useEffect(() => {
+    let result = jobsData;
+
+    if (filters.search) {
+      const searchLower = filters.search.toLowerCase();
+      result = result.filter(job =>
+        job.title.toLowerCase().includes(searchLower) ||
+        job.description.toLowerCase().includes(searchLower) ||
+        job.techStack.some(tech => tech.toLowerCase().includes(searchLower)) ||
+        job.department.toLowerCase().includes(searchLower)
+      );
+    }
+
+    if (filters.location) {
+      if (filters.location === 'Remote') {
+        result = result.filter(job => job.isRemote);
+      } else if (filters.location === 'Hybrid') {
+        result = result.filter(job => job.location.includes('Hybrid'));
+      } else if (filters.location === 'On-site') {
+        result = result.filter(job => job.location.includes('On-site'));
+      } else {
+        result = result.filter(job => job.location.includes(filters.location));
+      }
+    }
+
+    if (filters.type) {
+      result = result.filter(job => job.type === filters.type);
+    }
+
+    if (filters.experience) {
+      result = result.filter(job => {
+        if (filters.experience === 'entry') {
+          return job.experience.includes('0-') || job.experience.includes('1+');
+        }
+        if (filters.experience === 'mid') {
+          return job.experience.includes('2+') || job.experience.includes('3+');
+        }
+        if (filters.experience === 'senior') {
+          return job.experience.includes('4+') || job.experience.includes('5+');
+        }
+        return true;
+      });
+    }
+
+    setFilteredJobs(result);
+  }, [filters]);
+
+  const jobCount = filteredJobs.length;
+
+  return (
+    <div className="min-h-screen">
+      <div className="section-padding py-8">
+        <PageHeader
+          title="Open Positions"
+          subtitle="Find your perfect role and join our team of innovators"
+        >
+          <div className="flex items-center space-x-2 text-gray-600 mt-4">
+            <Briefcase className="h-5 w-5" />
+            <span>{jobCount} open position{jobCount !== 1 ? 's' : ''}</span>
+          </div>
+        </PageHeader>
+
+        <FilterBar onFilterChange={handleFilterChange} />
+
+        {filteredJobs.length > 0 ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+          >
+            {filteredJobs.map((job, index) => (
+              <motion.div
+                key={job.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+              >
+                <JobCard job={job} />
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <div className="text-center py-16">
+            <div className="bg-gradient-to-r from-blue-100 to-indigo-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Briefcase className="h-12 w-12 text-blue-600" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">No positions match your filters</h3>
+            <p className="text-gray-600 mb-8">Try adjusting your search criteria or check back later for new openings.</p>
+            <button
+              onClick={() => handleFilterChange({
+                search: '',
+                location: '',
+                type: '',
+                experience: ''
+              })}
+              className="btn-primary"
+            >
+              Clear All Filters
+            </button>
+          </div>
+        )}
+
+        <div className="mt-12 pt-8 border-t border-gray-200 text-center">
+          <p className="text-gray-600">
+            Don't see the perfect role?{' '}
+            <a href="mailto:careers@aparaitech.com" className="text-blue-600 hover:text-blue-800 font-medium">
+              Send us your resume
+            </a>{' '}
+            and we'll notify you when a matching position opens.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default OpenPositionsPage;

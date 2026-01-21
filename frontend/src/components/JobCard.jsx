@@ -1,0 +1,81 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { MapPin, Briefcase, Clock, ChevronRight, Laptop } from 'lucide-react';
+
+const JobCard = ({ job }) => {
+  return (
+    <div className="card p-6 hover:shadow-lg transition-all duration-300 group">
+      <div className="flex flex-col">
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+              {job.title}
+            </h3>
+            <p className="text-gray-600 mt-1">{job.department}</p>
+          </div>
+          <span className={`px-3 py-1 text-sm font-semibold rounded-full ${
+            job.type === 'Internship' 
+              ? 'bg-purple-100 text-purple-800'
+              : 'bg-green-100 text-green-800'
+          }`}>
+            {job.type}
+          </span>
+        </div>
+        
+        <div className="flex flex-wrap items-center gap-4 mb-4 text-gray-600">
+          <div className="flex items-center space-x-2">
+            <MapPin className="h-4 w-4" />
+            <span>{job.location}</span>
+            {job.isRemote && (
+              <span className="flex items-center space-x-1 text-blue-600">
+                <Laptop className="h-3 w-3" />
+                <span className="text-sm">Remote</span>
+              </span>
+            )}
+          </div>
+          <div className="flex items-center space-x-2">
+            <Briefcase className="h-4 w-4" />
+            <span>{job.experience}</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Clock className="h-4 w-4" />
+            <span>{job.postedDate}</span>
+          </div>
+        </div>
+
+        <p className="text-gray-600 mb-6 line-clamp-2">{job.description}</p>
+
+        <div className="flex flex-wrap gap-2 mb-6">
+          {job.techStack.slice(0, 4).map((tech, index) => (
+            <span
+              key={index}
+              className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-gray-200 transition-colors"
+            >
+              {tech}
+            </span>
+          ))}
+          {job.techStack.length > 4 && (
+            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">
+              +{job.techStack.length - 4} more
+            </span>
+          )}
+        </div>
+
+        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+          <div className="text-lg font-bold text-gray-900">
+            {job.salaryRange}
+          </div>
+          <Link
+            to={`/apply?role=${encodeURIComponent(job.title)}`}
+            className="btn-primary flex items-center space-x-2"
+          >
+            <span>Apply Now</span>
+            <ChevronRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default JobCard;
