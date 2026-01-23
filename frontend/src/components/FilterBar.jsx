@@ -71,6 +71,7 @@ const FilterBar = ({ onFilterChange }) => {
           >
             <option value="">All Job Types</option>
             <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-Time</option>
             <option value="Internship">Internship</option>
           </select>
         </div>

@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import jobRoutes from './routes/job.routes.js';
 import connectDB from './config/db.js';
 import cookieParser from 'cookie-parser';
+import adminRoutes from './routes/admin.routes.js'
 
 dotenv.config();
 await connectDB();
@@ -18,6 +19,7 @@ app.use(cors({
 }));
 
 app.use('/api/jobs', jobRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.get('/', (req, res) => {
     res.send(`API Running`)

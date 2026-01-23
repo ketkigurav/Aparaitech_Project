@@ -1,6 +1,5 @@
 import Admin from "../models/Admin.js";
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import generateToken from "../utils/generateToken.js";
 
 export const adminLogin = async (req, res) => {
@@ -32,7 +31,7 @@ export const adminLogin = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
-        res.status(200).json({ success: true, message: "Admin login successfull" })
+        res.status(200).json({ success: true, message: "Admin login successfull",token })
     } catch (error) {
         return res.status(500).json({ success: false, message: "Server Error" });
     }

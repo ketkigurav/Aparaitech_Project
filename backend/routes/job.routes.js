@@ -1,5 +1,6 @@
 import express from 'express';
 import { createJob, deleteJob, getAllJobs, getJobById, updateJob } from '../controlllers/job.controller.js';
+import { adminAuth } from '../middleware/adminAuth.js';
 
 const router = express.Router();
 
@@ -7,10 +8,10 @@ router.get('/', getAllJobs);
 
 router.get('/:id', getJobById);
 
-router.post('/', createJob);
+router.post('/', adminAuth, createJob);
 
-router.put('/:id', updateJob);
+router.put('/:id', adminAuth, updateJob);
 
-router.delete('/:id', deleteJob);
+router.delete('/:id', adminAuth, deleteJob);
 
 export default router;
