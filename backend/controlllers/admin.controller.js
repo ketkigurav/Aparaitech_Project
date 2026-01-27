@@ -19,7 +19,7 @@ export const adminLogin = async (req, res) => {
         const isMatch = await bcrypt.compare(password, admin.password);
 
         if (!isMatch) {
-            return res.status(401).json({ success: false, message: "Invlaid credentials" })
+            return res.status(401).json({ success: false, message: "Invalid credentials" })
         }
 
         const token = generateToken(admin);

@@ -39,7 +39,7 @@ export const createJob = async (req, res) => {
 
 
 // update job - admin only
-export const updateJob = async () => {
+export const updateJob = async (req, res) => {
     try {
         const { id } = req.body;
 
@@ -59,7 +59,7 @@ export const updateJob = async () => {
 }
 
 // delete job - admin only
-export const deleteJob = async () => {
+export const deleteJob = async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -76,7 +76,7 @@ export const deleteJob = async () => {
 }
 
 // get all jobs - User
-export const getAllJobs = async () => {
+export const getAllJobs = async (req, res) => {
     try {
         const jobs = await Job.find().sort({ createdAt: -1 });
 
