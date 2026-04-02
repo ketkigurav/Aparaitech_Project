@@ -22,4 +22,4 @@ A modern, professional careers website built with React + Tailwind CSS + Vite.
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd aparaitech-careers
+cd Aparaitech_Careers
