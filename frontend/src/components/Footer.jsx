@@ -13,7 +13,7 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
                     {/* Company Info */}
-                    <div className="hover:scale-105 transition duration-300">
+                    <div className="hover:scale-110 hover:text-blue-400 transition duration-300">
                         <Link to="/" className="flex items-center space-x-2 mb-6">
                             <img src={ALogo} alt="Logo" className="h-10" />
                             <span className="text-2xl font-bold text-blue-400">Aparaitech</span>
@@ -44,14 +44,14 @@ const Footer = () => {
 
                             <li className="flex items-center space-x-2">
                                 <Mail />
-                                <a href="mailto:ketkigurav146@gmail.com" className="hover:text-blue-400 transition">
-                                    ketkigurav146@gmail.com
+                                <a href="mailto:kirtikambale@gmail.com" className="hover:text-blue-400 transition">
+                                    kirtikambale@gmail.com
                                 </a>
                             </li>
 
                             <li className="flex items-center space-x-2">
                                 <Phone />
-                                <span>+91 9146958160</span>
+                                <span>+91 3114151778</span>
                             </li>
                         </ul>
                     </div>

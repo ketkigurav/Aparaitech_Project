@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Search, Filter, X } from 'lucide-react';
 
-const FilterBar = ({ onFilterChange }) => {
+const FilterBar = ({ onFilterChange }) => 
+  {
   const [filters, setFilters] = useState({
     search: '',
     location: '',
@@ -9,7 +10,8 @@ const FilterBar = ({ onFilterChange }) => {
     experience: ''
   });
 
-  const handleChange = (field, value) => {
+  const handleChange = (field, value) => 
+    {
     const newFilters = { ...filters, [field]: value };
     setFilters(newFilters);
     onFilterChange(newFilters);
@@ -29,7 +31,7 @@ const FilterBar = ({ onFilterChange }) => {
   const hasActiveFilters = Object.values(filters).some(value => value !== '');
 
   return (
-    <div className="card p-6 mb-8">
+    <div className="card p-6 mb-8 backdrop-blur-lg bg-white/80 border border-gray-200 rounded-2xl shadow-md">
       <div className="flex flex-col lg:flex-row lg:items-center gap-4">
         {/* Search Input */}
         <div className="flex-1">

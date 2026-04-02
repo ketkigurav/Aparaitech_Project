@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 
-const ChatBot = () => {
+const ChatBot = () =>
+   {
 
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -9,26 +10,39 @@ const ChatBot = () => {
   ]);
   const [input, setInput] = useState("");
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  const handleSend = () => 
+    {
+  if (!input.trim()) return;
 
-    const userMsg = { text: input, sender: "user" };
+  const userMsg = { text: input, sender: "user" };
+  const msg = input.toLowerCase();
 
-    let botReply = "Sorry, I didn't understand.";
+  let botReply = "";
 
-    if (input.toLowerCase().includes("job")) {
-      botReply = "You can explore jobs in the 'Explore Jobs' section 🚀";
-    } else if (input.toLowerCase().includes("apply")) {
-      botReply = "Click on Apply Now to start your application.";
-    } else if (input.toLowerCase().includes("contact")) {
-      botReply = "You can contact us via the Contact page.";
-    }
+  if (msg.includes("job") || msg.includes("opening")) {
+    botReply = "We have exciting roles 🚀 Check 'Open Roles' page!";
+  } 
+  else if (msg.includes("apply")) {
+    botReply = "Click on Apply page and fill the form. It’s quick 👍";
+  } 
+  else if (msg.includes("salary")) {
+    botReply = "Salary depends on role & experience 💼";
+  } 
+  else if (msg.includes("location")) {
+    botReply = "We offer Remote, Hybrid & On-site roles 🌍";
+  } 
+  else if (msg.includes("hello") || msg.includes("hi")) {
+    botReply = "Hey there 👋 How can I assist you today?";
+  } 
+  else {
+    botReply = "Ask me about jobs, applying, or company info 😊";
+  }
 
-    const botMsg = { text: botReply, sender: "bot" };
+  const botMsg = { text: botReply, sender: "bot" };
 
-    setMessages([...messages, userMsg, botMsg]);
-    setInput("");
-  };
+  setMessages(prev => [...prev, userMsg, botMsg]);
+  setInput("");
+};
 
   return (
     <div className="fixed bottom-5 right-5 z-50">
@@ -67,6 +81,7 @@ const ChatBot = () => {
               placeholder="Type a message..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSend()}
             />
             <button
               onClick={handleSend}

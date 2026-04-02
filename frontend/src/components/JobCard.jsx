@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Briefcase, Clock, ChevronRight, Laptop } from 'lucide-react';
 
-const JobCard = ({ job }) => {
+const JobCard = ({ job }) => 
+  {
   return (
-    <div className="card p-6 hover:shadow-lg transition-all duration-300 group">
+    <div className="card p-6 backdrop-blur-xl bg-white/80 border border-gray-200 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 blur-xl transition"></div>
       <div className="flex flex-col">
         <div className="flex items-start justify-between mb-4">
           <div>
